@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище workshopModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="otchet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="profit" Type="float" />
+          <Property Name="loss" Type="float" />
+          <Property Name="Year" Type="nchar" MaxLength="4" />
+          <Property Name="Month" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="price" Type="float" />
+        </EntityType>
+        <EntityType Name="workerDate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_worker" Type="int" />
+          <Property Name="date" Type="date" />
+          <Property Name="minimal" Type="bit" />
+          <Property Name="profit" Type="float" />
+        </EntityType>
+        <Association Name="FK_workerDate_worker">
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <End Role="workerDate" Type="Self.workerDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="workerDate">
+              <PropertyRef Name="id_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище workshopModelContainer">
+          <EntitySet Name="otchet" EntityType="Self.otchet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="worker" EntityType="Self.worker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="workerDate" EntityType="Self.workerDate" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_workerDate_worker" Association="Self.FK_workerDate_worker">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="workerDate" EntitySet="workerDate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="workshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="otchet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="profit" Type="Double" />
+          <Property Name="loss" Type="Double" />
+          <Property Name="Year" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Double" />
+          <NavigationProperty Name="workerDate" Relationship="Self.FK_workerDate_worker" FromRole="worker" ToRole="workerDate" />
+        </EntityType>
+        <EntityType Name="workerDate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_worker" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="minimal" Type="Boolean" />
+          <Property Name="profit" Type="Double" />
+          <NavigationProperty Name="worker" Relationship="Self.FK_workerDate_worker" FromRole="workerDate" ToRole="worker" />
+        </EntityType>
+        <Association Name="FK_workerDate_worker">
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <End Role="workerDate" Type="Self.workerDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="workerDate">
+              <PropertyRef Name="id_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="workshopEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="otchet" EntityType="Self.otchet" />
+          <EntitySet Name="worker" EntityType="Self.worker" />
+          <EntitySet Name="workerDate" EntityType="Self.workerDate" />
+          <AssociationSet Name="FK_workerDate_worker" Association="Self.FK_workerDate_worker">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="workerDate" EntitySet="workerDate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище workshopModelContainer" CdmEntityContainer="workshopEntities1">
+          <EntitySetMapping Name="otchet">
+            <EntityTypeMapping TypeName="workshopModel.otchet">
+              <MappingFragment StoreEntitySet="otchet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="profit" ColumnName="profit" />
+                <ScalarProperty Name="loss" ColumnName="loss" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="worker">
+            <EntityTypeMapping TypeName="workshopModel.worker">
+              <MappingFragment StoreEntitySet="worker">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workerDate">
+            <EntityTypeMapping TypeName="workshopModel.workerDate">
+              <MappingFragment StoreEntitySet="workerDate">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_worker" ColumnName="id_worker" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="minimal" ColumnName="minimal" />
+                <ScalarProperty Name="profit" ColumnName="profit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

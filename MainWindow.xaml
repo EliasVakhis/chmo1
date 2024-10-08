@@ -1,0 +1,68 @@
+﻿<Window x:Class="chmo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:chmo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="900" Width="1400">
+    <Grid Margin="20">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#fa6639" Offset="0.0"/>
+                <GradientStop Color="#e89a51" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <StackPanel Margin="20">
+            <TextBlock Text="Параметры для расчета" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="0,0,0,20" Foreground="#000"/>
+
+            <Label Content="Первое предприятие:"  FontSize="18" Margin="0,10,0,5"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="firstNormTxt" Width="120" Height="30" Margin="0,0,10,0" />
+                <TextBox x:Name="firstFactTxt" Width="120"/>
+            </StackPanel>
+
+            <Label Content="Второе предприятие:"  FontSize="18" Margin="0,20,0,5"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="secondNormTxt" Height="30" Width="120" Margin="0,0,10,0"  />
+                <TextBox x:Name="secondFactTxt" Height="30" Width="120" />
+            </StackPanel>
+
+            <Label Content="Третье предприятие:" FontSize="18" Margin="0,20,0,5"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="thirdNormTxt" Width="120" Height="30"  Margin="0,0,10,0" />
+                <TextBox x:Name="thirdFactTxt" Width="120" Height="30" />
+            </StackPanel>
+
+            <Separator Margin="0,20,0,20" />
+
+            <Label Content="Месяц:" FontSize="18"/>
+            <ComboBox x:Name="monthBox" Width="260" Height="30" Margin="0,5,0,10">
+                <ComboBoxItem Content="Январь"/>
+                <ComboBoxItem Content="Февраль"/>
+                <ComboBoxItem Content="Март"/>
+                <ComboBoxItem Content="Апрель"/>
+                <ComboBoxItem Content="Май"/>
+                <ComboBoxItem Content="Июнь"/>
+                <ComboBoxItem Content="Июль"/>
+                <ComboBoxItem Content="Август"/>
+                <ComboBoxItem Content="Сентябрь"/>
+                <ComboBoxItem Content="Октябрь"/>
+                <ComboBoxItem Content="Ноябрь"/>
+                <ComboBoxItem Content="Декабрь"/>
+            </ComboBox>
+
+            <Label Content="Год:" FontSize="18"/>
+            <TextBox x:Name="yearTxt" Width="260" Height="30"  Margin="0,5,0,20"  />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button x:Name="okBtn" Content="Рассчитать" Width="120" Margin="10"  Background="#5CB85C" Foreground="White" Height="45" />
+                <Button x:Name="reloadBtn" Content="Сброс" Width="120" Margin="10" Background="#D9534F" Foreground="White" />
+                <Button Content="Статистика" Width="120" Margin="10" Background="#5BC0DE" Foreground="White"/>
+            </StackPanel>
+
+            <DataGrid x:Name="statisticGrid" Margin="0,20,0,0" AutoGenerateColumns="True" Height="200" Background="White" />
+        </StackPanel>
+    </Grid>
+</Window>
